@@ -27,13 +27,13 @@ Whether you're a technician, engineer, hobbyist, or educator, OPOSSUM helps you 
 
 | Folder        | Description                                         |
 |---------------|-----------------------------------------------------|
-| `/docs`       | Markdown files for GitHub Pages site                |
-| `/hardware`   | PCB designs, schematics, and 3D enclosure files     |
-| `/firmware`   | ESP32/RPi microcontroller code                      |
-| `/software`   | PC-based config tools (CLI/GUI)                     |
-| `/config`     | YAML/JSON test profile examples                     |
-| `/images`     | Diagrams and project visuals                        |
-| `/logs`       | Sample output and test logs                         |
+| [`docs/`](docs/)       | Markdown files for GitHub Pages site                |
+| [`hardware/`](hardware/)   | PCB designs, schematics, and 3D enclosure files     |
+| [`firmware/`](firmware/)   | ESP32/RPi microcontroller code                      |
+| [`software/`](software/)   | PC-based config tools (CLI/GUI)                     |
+| [`config/`](config/)     | YAML/JSON test profile examples                     |
+| [`images/`](images/)     | Diagrams and project visuals                        |
+| [`logs/`](logs/)       | Sample output and test logs                         |
 
 ---
 
