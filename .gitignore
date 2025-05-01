@@ -1,0 +1,66 @@
+# === GENERAL ===
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+*.swp
+
+# === FIRMWARE (PlatformIO/Arduino) ===
+.pio/
+.vscode/
+*.elf
+*.bin
+*.hex
+*.map
+*.pyc
+__pycache__/
+
+# === PYTHON SOFTWARE ===
+.env
+.venv/
+env/
+venv/
+*.pyc
+__pycache__/
+dist/
+build/
+*.egg-info/
+
+# === KICAD ===
+*.bak
+*.tmp
+*.kicad_pcb-bak
+*.kicad_prl
+*.kicad_sch-bak
+*.kicad_dru
+*.kicad_net
+sym-lib-table~
+fp-lib-table~
+*.autosave
+
+# === ALTIUM (if used) ===
+*.PrjPCBStructure
+*.Wrk
+*.PrjPCBGraph
+*.PcbDocPreview
+*.SchDocPreview
+
+# === LOGS / OUTPUTS ===
+logs/*.txt
+logs/*.csv
+logs/*.json
+
+# === TEST CONFIGURATION BACKUPS ===
+config/*.bak
+config/*~*
+
+# === OS GENERATED ===
+ehthumbs.db
+Desktop.ini
+*.orig
+
+# === BACKUPS / TEMP FILES ===
+*~
+*.old
+*.backup
