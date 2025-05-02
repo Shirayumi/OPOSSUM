@@ -17,10 +17,12 @@
 - 🔋 **Battery-powered** using removable 18650 cells
 - 🧩 **I2C expansion modules**
 
+<!--------------------------------------------------------------------------->
 ## 🔗 Quick Links
 - [Project Roadmap](/roadmap.md)
 - [To-do](/docs/to-do.md)
 
+<!--------------------------------------------------------------------------->
 ## 📫 Contact
 Questions? Ideas? File an [issue](https://github.com/Shirayumi/OPOSSUM/issues) or start a [discussion](https://github.com/Shirayumi/OPOSSUM/discussions).
  
