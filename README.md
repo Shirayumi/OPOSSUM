@@ -13,10 +13,10 @@ Whether you're a technician, engineer, hobbyist, or educator, OPOSSUM helps you 
 
 ## ⚙️ Key Features
 
-- 🔄 **Automated test sequencing** via JSON/YAML configuration files
+- 🔄 **Automated test sequencing** via JSON configuration files
 - 🔌 **Universal connector interface** using 8-pin aviation connectors
 - 🔧 **Modular input** with customizable plug adapters
-- 📊 **Live readings, data logging**, and **go/no-go indicators**
+- 📊 **Live readings, data logging**, and **go/no-go indication**
 - 🖥️ **Touch display** for standalone operation
 - 🔋 **Battery-powered** using removable 18650 cells
 - 🧩 **I2C expansion modules** for signal-level switching and more
@@ -25,15 +25,15 @@ Whether you're a technician, engineer, hobbyist, or educator, OPOSSUM helps you 
 
 ## 🛠️ Project Structure
 
-| Folder        | Description                                         |
-|---------------|-----------------------------------------------------|
-| [`docs/`](docs/)       | Markdown files for GitHub Pages site                |
-| [`hardware/`](hardware/)   | PCB designs, schematics, and 3D enclosure files     |
-| [`firmware/`](firmware/)   | ESP32/RPi microcontroller code                      |
-| [`software/`](software/)   | PC-based config tools (CLI/GUI)                     |
-| [`config/`](config/)     | YAML/JSON test profile examples                     |
-| [`images/`](images/)     | Diagrams and project visuals                        |
-| [`logs/`](logs/)       | Sample output and test logs                         |
+| Folder                    | Description                                         |
+|---------------------------|-----------------------------------------------------|
+| [`/docs`](docs/)          | Markdown files for GitHub Pages site                |
+| [`/hardware`](hardware/)  | PCB designs, schematics, and 3D enclosure files     |
+| [`/firmware`](firmware/)  | ESP32-3248S035R microcontroller code                |
+| [`/software`](software/)  | PC-based config tools (CLI/GUI)                     |
+| [`/config`](config/)      | JSON test profile examples                          |
+| [`/images`](images/)      | Diagrams and project visuals                        |
+| [`/logs`](logs/)          | Sample output and test logs                         |
 
 ---
 
@@ -48,7 +48,7 @@ Whether you're a technician, engineer, hobbyist, or educator, OPOSSUM helps you 
 
 ### 🧪 Run a Test Sequence
 1. Connect your device to the aviation connector adapter.
-2. Load or select a test profile (`.yaml` or `.json`) from `/config`.
+2. Load or select a test profile (`.json`) from `/config`.
 3. Run the sequence and monitor results live or via USB logging.
 
 See [Testing Guide](docs/testing.md) for step-by-step instructions.
@@ -59,7 +59,7 @@ See [Testing Guide](docs/testing.md) for step-by-step instructions.
 
 We welcome contributions! To get started:
 - Read the [Contribution Guide](CONTRIBUTING.md)
-- Check out [open issues](https://github.com/YOUR_USERNAME/OPOSSUM/issues)
+- Check out [open issues](https://github.com/Shirayumi/OPOSSUM/issues)
 - Submit a pull request or start a discussion
 
 If you add a new expansion module, please document it in [`docs/expansion-modules.md`](docs/expansion-modules.md).
@@ -68,10 +68,8 @@ If you add a new expansion module, please document it in [`docs/expansion-module
 
 ## 📅 Project Roadmap
 
-See [`ROADMAP.md`](ROADMAP.md) for planned features including:
-- ✅ Visual configuration tool (PC-based)
-- 🔄 Wi-Fi syncing of test profiles
-- 📦 Auto-export of logs to CSV
+See [`roadmap.md`](roadmap.md) for planned features.
+Also see [`to-do.md](docs/to-do.md) for a more detailed view.
 
 ---
 
