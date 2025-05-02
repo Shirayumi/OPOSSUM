@@ -69,7 +69,7 @@ If you add a new expansion module, please document it in [`docs/expansion-module
 ## 📅 Project Roadmap
 
 See [`roadmap.md`](roadmap.md) for planned features.
-Also see [`to-do.md](docs/to-do.md) for a more detailed view.
+Also see [`to-do.md`](docs/to-do.md) for a more detailed view.
 
 ---
 
