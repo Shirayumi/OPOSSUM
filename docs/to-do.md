@@ -13,13 +13,15 @@
 
 ### Embedded Software (ESP32-3248S035R)
 - [ ] Set up **firmware environment**
+- [ ] Add **firmware versioning system**
 - [ ] Develop **SPI communication with multimeter**
 - [ ] Create **touchscreen UI for manual testing**
 - [ ] Develop **data logging functionality**
 
 ### Automated Testing & Configuration System
 - [ ] Define **JSON configuration file structure**
-- [ ] Develop **relay control logic** and interlocks
+- [ ] Implement **safe relay initialization and shutdown states**
+- [ ] Develop **relay control logic and interlocks**
 - [ ] Implement **script-based test sequencing**
 
 ## 3️⃣ Prototyping & Testing
@@ -49,11 +51,13 @@
 - [ ] Define **expansion module use cases**
 - [ ] Design **I2C expansion interface** and communication protocol
 - [ ] Test **I2C expansion module recognition**
-- [ ] Prototype an **expansion board** for signal-level
+- [ ] Prototype an **expansion board**
 
 ### Extra Features
 - [ ] Add **Bluetooth/WiFi connectivity** for remote monitoring
 - [ ] Implement **cloud-based test logging**
-- [ ] Develop **more expansion modules** (e.g., signal-level switching)
+- [ ] Develop **more expansion modules**
 - [ ] Develop **PC-based test automation tools**
+- [ ] Implement **USB test result export interface**
+- [ ] Develop **visual test profile editor**
 - [ ] Explore **machine learning-based anomaly detection** or other integrations
