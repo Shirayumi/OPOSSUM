@@ -4,17 +4,18 @@
 ## 1️⃣ Initial Research & Planning
 
 - [x] Define **core testing functionalities** OPOSSUM must support
-- [x] Finalize **connector selection** (standard + modular input panel decision)
-- [x] Research **multimeter interfaces** (UART-controlled vs. direct measurement)
-- [x] Select a **microcontroller** (ESP32, Raspberry Pi Zero, or alternative)
-- [x] Research relay types for **low-power, reliable switching** (relays vs. SSRs)
+- [x] Finalize **connector selection** (8-pin aviation connector)
+- [x] Research **multimeter interfaces** (UART-controlled MIKROE-3116)
+- [x] Select a **microcontroller** (ESP32-2432S028R)
+- [x] Research relay types for **low-power, reliable switching** (latching relays)
 
+<!------------------------------------------------------------>
 ## 2️⃣ Firmware & Software Development
 
 ### Embedded Software (ESP32-3248S035R)
-- [ ] Set up **firmware environment**
-- [ ] Add **firmware versioning system**
-- [ ] Develop **SPI communication with multimeter**
+- [x] Set up **firmware environment** (using ArduinoIDE for now)
+- [x] Add **firmware versioning system**
+- [ ] Develop **UART communication with multimeter** (WIP-simulating multimeter)
 - [ ] Create **touchscreen UI for manual testing**
 - [ ] Develop **data logging functionality**
 
@@ -24,19 +25,22 @@
 - [ ] Develop **relay control logic and interlocks**
 - [ ] Implement **script-based test sequencing**
 
+<!------------------------------------------------------------>
 ## 3️⃣ Prototyping & Testing
 
 - [ ] Build **first hardware prototype**
 - [ ] Test **relay control logic** and interlocks
 - [ ] Develop **fuse protection and safety features**
 
+<!------------------------------------------------------------>
 ## 4️⃣ Hardware Design
 
 - [ ] Design **power supply circuit** (battery + charging system)
-- [ ] Develop **input/output expansion interface** (I2C)
+- [ ] Develop **input/output expansion interface** (UART)
 - [ ] Select **enclosure materials & form factor**
 - [ ] Validate **battery power performance**
 
+<!------------------------------------------------------------>
 ## 5️⃣ Refinements & Production
 
 - [ ] Finalize **enclosure design & assembly process**
@@ -45,12 +49,13 @@
 - [ ] Conduct **stress testing** with real-world devices
 - [ ] Develop **user documentation** and testing guides
 
+<!------------------------------------------------------------>
 ## 6️⃣ Future Enhancements
 
 ### Expansion Modules
 - [ ] Define **expansion module use cases**
-- [ ] Design **I2C expansion interface** and communication protocol
-- [ ] Test **I2C expansion module recognition**
+- [ ] Design **UART expansion interface** and communication protocol
+- [ ] Test **UART expansion module recognition**
 - [ ] Prototype an **expansion board**
 
 ### Extra Features

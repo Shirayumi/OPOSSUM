@@ -1,22 +1,33 @@
-// Multimeter Click Simulator for Arduino Mega (Slave Device) - UART Version
+// Multimeter Click Simulator for Arduino Mega
 // Simulates MCP3204 behavior using UART on Serial1 (TX1 = pin 18, RX1 = pin 19)
 
+bool adcJitter = true;
 
 void setup() {
+  randomSeed(analogRead(A0));
   Serial.begin(9600); // For debug messages on Serial0 (USB)
   Serial1.begin(115200); // Communication on Serial1
   delay(1500);
-  Serial.println("Simulated Multimeter Click Ready (UART Slave on Serial1)");
+  Serial.println("Simulated Multimeter Click Ready (UART on Serial1)");
 }
 
 uint16_t simulateADCValue(uint8_t channel) {
+  int baseValue = 0;
+  int value = 0;
+
   switch (channel) {
-    case 0: return 125;    // Simulated Current (I)
-    case 1: return 2000;   // Simulated Voltage (U)
-    case 2: return 1000;   // Simulated Resistance (R)
-    case 3: return 3000;   // Simulated Capacitance (CU)
-    default: return 0;
+    case 0: baseValue = 120; break;    // Current
+    case 1: baseValue = 2000; break;   // Voltage
+    case 2: baseValue = 1000; break;   // Resistance
+    case 3: baseValue = 3000; break;   // Capacitance
+    default: baseValue = 0; break;
   }
+
+  if (adcJitter) {
+    int jitter = random(-20, 21); // jitter between -10 and +10
+    value = baseValue + jitter;
+  }
+  return constrain(value, 0, 4095); // ensure valid 12-bit range
 }
 
 void loop() {

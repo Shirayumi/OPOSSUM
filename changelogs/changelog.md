@@ -18,7 +18,19 @@
 ### PATCH
 
 <!------------------------------------------------------------>
-## `0.1.0` 02-MAY-2025
+## `0.2.0` 03-MAY-2025
+
+### MAJOR
+
+### MINOR
+- [Added] - Touchscreen functionality in UART_and_Screen_ESP
+
+### PATCH
+- [Added] - Ability to add jitter to the output of Multimeter_Click_Sim_Arduino
+- [Changed] - SPI, I2C -> UART in documentation
+
+<!------------------------------------------------------------>
+## `0.1.0` 03-MAY-2025
 
 ### MAJOR
 

@@ -9,13 +9,13 @@
 <!--------------------------------------------------------------------------->
 ## ⚙️ Key Features
 
-- 🔄 **Automated test sequencing** via JSON configuration files
+- 🔄 **Automated test sequencing** via configuration files
 - 🔌 **Universal connector interface** using 8-pin aviation connectors
 - 🔧 **Modular input** with customizable adapters
 - 📊 **Live readings, data logging**, and **go/no-go indication**
 - 🖥️ **Touch display** for standalone operation
 - 🔋 **Battery-powered** using removable 18650 cells
-- 🧩 **I2C expansion modules**
+- 🧩 **UART expansion modules** for custom functionality
 
 <!--------------------------------------------------------------------------->
 ## 🔗 Quick Links

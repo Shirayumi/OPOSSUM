@@ -5,10 +5,6 @@
 #define UART_TX 27
 
 uint8_t channel = 0;
-float current = 0;
-float voltage = 0;
-float resistance = 0;
-float capacitance_uF = 0;
 
 HardwareSerial SensorSerial(1);
 
@@ -42,8 +38,11 @@ void calculateValue(uint16_t adcValue) {    // Convert the raw ADC value to the 
 
   Serial.print("Raw ADC Value: ");
   Serial.println(adcValue);
-  voltage = (adcValue * 2.048) / 4095.0;
-  capacitance_uF = map(adcValue, 0, 4095, 0, 2200) / 1000.0;
+  
+  float voltage = (adcValue * 2.048) / 4095.0;
+  float capacitance_uF = map(adcValue, 0, 4095, 0, 2200) / 1000.0;
+  float current = 0;
+  float resistance = 0;
 
   switch (channel) {
     case 0:   // Current reading
@@ -88,5 +87,5 @@ void loop() {
     channel += 1;   // Move to the next channel
   }
 
-  delay(3000);
+  delay(500);
 }
