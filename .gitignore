@@ -5,6 +5,7 @@ Thumbs.db
 *.bak
 *.swp
 MD_templates/
+test/libraries/
 
 # === FIRMWARE (PlatformIO/Arduino) ===
 .pio/
