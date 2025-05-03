@@ -20,6 +20,8 @@
 uint8_t channel = 0;
 const char* channelLabels[] = {"Current", "Voltage", "Resistance", "Capacitance"};
 const char* valueLabels[] = {"A", "V", "Ohms", "uF"};
+
+int prevChannel = 0;
 bool touchFlag = false;
 
 HardwareSerial SensorSerial(1);
@@ -57,6 +59,7 @@ void setup() {
 
   Serial.println("OPOSSUM Ready");
   delay(1000);
+  tft.fillScreen(TFT_BLACK);
 }
 
 void sendCommand(uint8_t command) {
@@ -90,7 +93,11 @@ void printValue(float value, uint16_t adcValue) {
 
   
   // Write output to screen
-  tft.fillScreen(TFT_BLACK);
+
+  if (channel != prevChannel) {   // clear the screen before printing new channel info
+    tft.fillScreen(TFT_BLACK);
+  }
+
   // Draw measurement type at top of screen
   tft.drawCentreString(channelLabels[channel], 160, 50, 4);
   // Draw calculated value with units
@@ -103,6 +110,8 @@ void printValue(float value, uint16_t adcValue) {
   floatToString(adcValue, adcString, 5, 0);
   tft.drawString("Raw ADC Value:", 10, 210, 4);
   tft.drawString(adcString, 200, 210, 4);
+
+  prevChannel = channel;
 }
 
 float calculateValue(uint16_t adcValue) {    // Convert the raw ADC value to the appropriate value and display
@@ -149,6 +158,7 @@ void loop() {
   }
 
   delay(500);
+
 
   if (!ts.tirqTouched() && !ts.touched()) {
     touchFlag = false;
