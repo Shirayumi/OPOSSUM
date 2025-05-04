@@ -7,7 +7,6 @@ void setup() {
   randomSeed(analogRead(A0));
   Serial.begin(9600); // For debug messages on Serial0 (USB)
   Serial1.begin(115200); // Communication on Serial1
-  delay(1500);
   Serial.println("Simulated Multimeter Click Ready (UART on Serial1)");
 }
 

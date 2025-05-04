@@ -157,7 +157,7 @@ void loop() {
     channel = 0;
   }
 
-  delay(500);
+  delay(200);
 
 
   if (!ts.tirqTouched() && !ts.touched()) {

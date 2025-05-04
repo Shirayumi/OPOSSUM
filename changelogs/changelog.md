@@ -18,6 +18,17 @@
 ### PATCH
 
 <!------------------------------------------------------------>
+## `0.2.2` 03-MAY-2025
+
+### MAJOR
+
+### MINOR
+
+### PATCH
+- [Changed] - Delay time in UART_and_Screen_ESP
+- [Removed] - Delay in Multimeter_Click_Sim_Arduino_Mega
+
+<!------------------------------------------------------------>
 ## `0.2.1` 03-MAY-2025
 
 ### MAJOR
