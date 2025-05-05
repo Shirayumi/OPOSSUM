@@ -18,6 +18,11 @@
 - 🧩 **UART expansion modules** for custom functionality
 
 <!--------------------------------------------------------------------------->
+## Project Updates
+- Created a simple GUI for changing channels. (0.3.0) <br>
+![OPOSSUM GUI VIDEO](/media/OPOSSUM_GUI_VIDEO.mp4)
+
+<!--------------------------------------------------------------------------->
 ## 🔗 Quick Links
 - [Project Roadmap](/roadmap.md)
 - [To-do](/docs/to-do.md)
