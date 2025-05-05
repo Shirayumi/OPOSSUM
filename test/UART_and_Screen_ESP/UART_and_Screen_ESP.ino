@@ -5,6 +5,10 @@
 #include <TFT_eSPI.h>
 #include <floatToString.h>
 
+// Define RGB LED pins
+#define RED 4
+#define GREEN 16
+#define BLUE 17
 
 // Custom UART pins
 #define UART_RX 22
@@ -33,6 +37,15 @@ TFT_eSPI tft = TFT_eSPI();
 
 void setup() {
   Serial.begin(115200);
+
+  // Turn off the LEDs
+  pinMode(RED, OUTPUT);
+  pinMode(GREEN, OUTPUT);
+  pinMode(BLUE, OUTPUT);
+
+  digitalWrite(RED, 1);
+  digitalWrite(GREEN, 1);
+  digitalWrite(BLUE, 1);
   
   // Configure UART1 on custom pins
   SensorSerial.begin(115200, SERIAL_8N1, UART_RX, UART_TX);
@@ -48,14 +61,10 @@ void setup() {
 
   // Clear the screen before writing to it
   tft.fillScreen(TFT_BLACK);
-
   int x = 320 / 2; // center of display
   int y = 90;
   int fontSize = 4;
   tft.drawCentreString("OPOSSUM Ready", x, y, fontSize);
-  fontSize -= 2;
-  y += 20;
-  tft.drawCentreString("Touch Screen to Start", x, y, fontSize);
 
   Serial.println("OPOSSUM Ready");
   delay(1000);
@@ -142,8 +151,18 @@ void loop() {
   sendCommand(channel); // Send a command via serial
 
   while (!SensorSerial.available()) {
-    // wait for response
+    int x = 320 / 2; // center of display
+    int y = 90;
+    int fontSize = 4;
+    tft.drawCentreString("OPOSSUM Ready", x, y, fontSize);
+    fontSize -= 2;
+    y += 20;
+    tft.drawCentreString("Waiting For meter", x, y, fontSize);
+    digitalWrite(RED, 0);
   }
+
+  digitalWrite(RED, 1);
+  analogWrite(GREEN, 200);
 
   uint16_t adcValue = readResponse();
   printValue(calculateValue(adcValue), adcValue);
