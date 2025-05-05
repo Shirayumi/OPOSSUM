@@ -20,7 +20,7 @@
 <!--------------------------------------------------------------------------->
 ## Project Updates
 - Created a simple GUI for changing channels. (0.3.0) <br>
-![OPOSSUM GUI VIDEO](/media/OPOSSUM_GUI_VIDEO.mp4)
+[OPOSSUM GUI VIDEO](/media/OPOSSUM_GUI_VIDEO.mp4)
 
 <!--------------------------------------------------------------------------->
 ## 🔗 Quick Links
