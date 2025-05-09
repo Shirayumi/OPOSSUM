@@ -18,6 +18,17 @@
 ### PATCH
 
 <!------------------------------------------------------------>
+## `0.3.1` 03-MAY-2025
+
+### MAJOR
+
+### MINOR
+
+### PATCH
+- [Added] - Serial timeout handeling to OPOSSUM_GUI
+- [Added] - A version of the multimeter sim using an Arduino Uno Mini
+
+<!------------------------------------------------------------>
 ## `0.3.0` 03-MAY-2025
 
 ### MAJOR

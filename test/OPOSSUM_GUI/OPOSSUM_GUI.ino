@@ -13,6 +13,7 @@
 // Custom UART pins on CN1 connector
 #define UART_RX 22
 #define UART_TX 27
+#define TIMEOUT_TIME 1000
 
 // ESP32-2432S028R touchscreen pins
 #define XPT2046_IRQ 36
@@ -79,8 +80,10 @@ bool touchFlag = false;
 
 // Draw all butttons
 void drawButtons() {
+  tft.fillScreen(TFT_BLACK);
+  
   for (int i = 0; i < SCREEN_WIDTH; i += 80) {
-    tft.fillRect(i + 1, btn_frame_Y + 1, (btn_frame_W / 4 - 2), (btn_frame_H - 2), TFT_WHITE);
+  tft.fillRect(i + 1, btn_frame_Y + 1, (btn_frame_W / 4 - 2), (btn_frame_H - 2), TFT_WHITE);
   }
   
   tft.setTextColor(TFT_BLACK);
@@ -149,8 +152,50 @@ uint16_t readResponse() {
   if (response.startsWith("VAL")) {
     return response.substring(4).toInt();
   } else {
-    return 0; // Error or invalid response
+    return 33333; // Error or invalid response
   }
+}
+
+// Runs if no data able to be sent to meter
+void TX_timeout_handler() {
+  // Display error message
+  tft.fillScreen(TFT_BLACK);
+  tft.drawCentreString("Meter not detected", 162, 100, 2);
+  Serial.println("Meter not detected");
+
+  // Spam out the last command until meter responds
+  while (!SensorSerial.available()) {
+    sendCommand(channel);
+  }
+  switch (channel) {
+    case 0: I_btn_selected(); break;
+    case 1: V_btn_selected(); break;
+    case 2: R_btn_selected(); break;
+    case 3: C_btn_selected(); break;
+    }
+}
+
+// Runs if no data recieved from meter
+uint16_t RX_error_handler(uint16_t adc) {
+
+  // Display error message
+  tft.fillScreen(TFT_BLACK);
+  tft.drawCentreString("Meter not detected", 162, 100, 2);
+  Serial.println("Meter not detected");
+
+  while (adc == 33333) {
+    sendCommand(channel);
+    adc = readResponse();
+  }
+
+  switch (channel) {
+    case 0: I_btn_selected(); break;
+    case 1: V_btn_selected(); break;
+    case 2: R_btn_selected(); break;
+    case 3: C_btn_selected(); break;
+  }
+  
+  return adc;
 }
 // END SERIAL FUNCTIONS
 
@@ -232,6 +277,7 @@ void setup() {
 
   // Configure UART1 on custom pins
   SensorSerial.begin(115200, SERIAL_8N1, UART_RX, UART_TX);
+  Serial.setTimeout(TIMEOUT_TIME);
 
   // Start the SPI for the touchscreen and init the touchscreen
   mySpi.begin(XPT2046_CLK, XPT2046_MISO, XPT2046_MOSI, XPT2046_CS);
@@ -248,10 +294,8 @@ void setup() {
   tft.fillScreen(TFT_BLACK);
 
   tft.drawCentreString("OPOSSUM Ready", 162, 100, 2);
-
   Serial.println("OPOSSUM Ready");
   delay(1000);
-  tft.fillScreen(TFT_BLACK);
 
   // Draw buttons with channel 0 (Current) selected
   I_btn_selected();
@@ -265,12 +309,19 @@ void loop() {
 
   sendCommand(channel); // Send a command via serial
 
+  // Detect if serial is hung
+  unsigned long startMillis = millis();
   while (!SensorSerial.available()) {
-
+    if (millis() - startMillis >= TIMEOUT_TIME) {
+      TX_timeout_handler();
+    }
   }
 
-
   uint16_t adcValue = readResponse();
+  if (adcValue == 33333) {
+    adcValue = RX_error_handler(readResponse());
+  }
+
   printValue(calculateValue(adcValue), adcValue);
 
   // Checks if a measurement button was touched and changes channel if required
@@ -288,25 +339,21 @@ void loop() {
     if ((x > C_btn_X) && (x < SCREEN_WIDTH)) {
         if ((y > (C_btn_Y)) && (y <= (C_btn_Y + C_btn_H))) {
           Serial.println("C");
-          tft.fillScreen(TFT_BLACK);
           C_btn_selected();
         }
     } else if ((x > R_btn_X) && (x < (R_btn_X + C_btn_Y))) {
         if ((y > (R_btn_Y)) && (y <= (R_btn_Y + R_btn_H))) {
           Serial.println("R");
-          tft.fillScreen(TFT_BLACK);
           R_btn_selected();
         }
     } else if ((x > V_btn_X) && (x < (V_btn_X + R_btn_Y))) {
         if ((y > (V_btn_Y)) && (y <= (V_btn_Y + V_btn_H))) {
           Serial.println("V");
-          tft.fillScreen(TFT_BLACK);
           V_btn_selected();
         }
     } else if ((x > I_btn_X) && (x < (I_btn_X + V_btn_Y))) {
         if ((y > (I_btn_Y)) && (y <= (I_btn_Y + I_btn_H))) {
           Serial.println("I");
-          tft.fillScreen(TFT_BLACK);
           I_btn_selected();
         }
     }
