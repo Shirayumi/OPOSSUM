@@ -18,7 +18,18 @@
 ### PATCH
 
 <!------------------------------------------------------------>
-## `0.3.1` 03-MAY-2025
+## `0.3.2` 09-MAY-2025
+
+### MAJOR
+
+### MINOR
+
+### PATCH
+- [Changed] - Condensed the the sendCommand, readCommand, and timeout functions
+- [Added] - redrawChannelUI function to streamline button drawing
+
+<!------------------------------------------------------------>
+## `0.3.1` 08-MAY-2025
 
 ### MAJOR
 

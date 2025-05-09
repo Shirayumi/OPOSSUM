@@ -13,7 +13,8 @@
 // Custom UART pins on CN1 connector
 #define UART_RX 22
 #define UART_TX 27
-#define TIMEOUT_TIME 1000
+#define TIMEOUT_TIME 500
+constexpr uint16_t RESPONSE_ERROR = 0xFFFF;
 
 // ESP32-2432S028R touchscreen pins
 #define XPT2046_IRQ 36
@@ -133,69 +134,46 @@ void C_btn_selected() {
   tft.drawCentreString("C", C_btn_X + (C_btn_W / 2), C_btn_Y + (C_btn_H / 2), 4);
   channel = 3;
 }
+
+// Redraw butttons with correct channel selected
+void redrawChannelUI() {
+  switch (channel) {
+    case 0: I_btn_selected(); break;
+    case 1: V_btn_selected(); break;
+    case 2: R_btn_selected(); break;
+    case 3: C_btn_selected(); break;
+  }
+}
 // END BUTTON FUNCTIONS
 
 
 // SERIAL1 FUNCTIONS ---------------------------------------------------------------------------
 
-// Send UART command
-void sendCommand(uint8_t command) {
+// Request a channel, return value or RESPONSE_ERROR on timeout/parse error
+uint16_t requestChannel(uint8_t channel) {
+  // 1) Clear any stale data
+  while (SensorSerial.available()) SensorSerial.read();
+
+  // 2) Send command
   SensorSerial.print("CMD ");
-  SensorSerial.println(command);
-}
+  SensorSerial.println(channel);
 
-// Receive UART response
-uint16_t readResponse() {
-  String response = SensorSerial.readStringUntil('\n');
-  response.trim();
-
-  if (response.startsWith("VAL")) {
-    return response.substring(4).toInt();
-  } else {
-    return 33333; // Error or invalid response
-  }
-}
-
-// Runs if no data able to be sent to meter
-void TX_timeout_handler() {
-  // Display error message
-  tft.fillScreen(TFT_BLACK);
-  tft.drawCentreString("Meter not detected", 162, 100, 2);
-  Serial.println("Meter not detected");
-
-  // Spam out the last command until meter responds
+  // 3) Wait for line (up to TIMEOUT_TIME)
+  unsigned long t0 = millis();
   while (!SensorSerial.available()) {
-    sendCommand(channel);
-  }
-  switch (channel) {
-    case 0: I_btn_selected(); break;
-    case 1: V_btn_selected(); break;
-    case 2: R_btn_selected(); break;
-    case 3: C_btn_selected(); break;
+    if (millis() - t0 >= TIMEOUT_TIME) {
+      return RESPONSE_ERROR;
     }
-}
-
-// Runs if no data recieved from meter
-uint16_t RX_error_handler(uint16_t adc) {
-
-  // Display error message
-  tft.fillScreen(TFT_BLACK);
-  tft.drawCentreString("Meter not detected", 162, 100, 2);
-  Serial.println("Meter not detected");
-
-  while (adc == 33333) {
-    sendCommand(channel);
-    adc = readResponse();
   }
 
-  switch (channel) {
-    case 0: I_btn_selected(); break;
-    case 1: V_btn_selected(); break;
-    case 2: R_btn_selected(); break;
-    case 3: C_btn_selected(); break;
+  // 4) Read and parse
+  SensorSerial.setTimeout(TIMEOUT_TIME);
+  String resp = SensorSerial.readStringUntil('\n');
+  resp.trim();
+  if (!resp.startsWith("VAL ")) {
+    return RESPONSE_ERROR;
   }
-  
-  return adc;
+  return (uint16_t)resp.substring(4).toInt();
 }
 // END SERIAL FUNCTIONS
 
@@ -203,7 +181,7 @@ uint16_t RX_error_handler(uint16_t adc) {
 // METER FUNCTIONS ---------------------------------------------------------------------------
 
 // Write output to screen
-void printValue(float value, uint16_t adcValue) {
+void displayReading(float reading, uint16_t adcValue) {
   // Write output to Serial
   Serial.print("Raw ADC Value: ");
   Serial.println(adcValue);
@@ -211,7 +189,7 @@ void printValue(float value, uint16_t adcValue) {
   Serial.print("Approximate ");
   Serial.print(channelLabels[channel]);
   Serial.print(" : ");
-  Serial.print(value, 3);
+  Serial.print(reading, 3);
   Serial.print(" ");
   Serial.println(valueLabels[channel]);
   Serial.println();
@@ -222,9 +200,9 @@ void printValue(float value, uint16_t adcValue) {
   tft.drawCentreString(channelLabels[channel], 160, 20, 4);
 
   // Draw calculated value with units
-  char valueString[10];
-  floatToString(value, valueString, 10, 3);
-  tft.drawRightString(valueString, 175, 70, 4);
+  char readingString[10];
+  floatToString(reading, readingString, 10, 3);
+  tft.drawRightString(readingString, 175, 70, 4);
   tft.drawString(valueLabels[channel], 185, 70, 4);
 
   // Draw raw ADC data at bottom of screen above buttons
@@ -298,7 +276,7 @@ void setup() {
   delay(1000);
 
   // Draw buttons with channel 0 (Current) selected
-  I_btn_selected();
+  redrawChannelUI();
 
 }
 // END SETUP FUNCTION
@@ -307,22 +285,27 @@ void setup() {
 // MAIN LOOP ---------------------------------------------------------------------------
 void loop() {
 
-  sendCommand(channel); // Send a command via serial
+  uint16_t adcValue = requestChannel(channel);
+  
+  // if coms error
+  if (adcValue == RESPONSE_ERROR) {
+    // Blank & show error
+    tft.fillScreen(TFT_BLACK);
+    tft.drawCentreString("Meter not detected", 162, 100, 2);
+    Serial.println("Meter not detected");
 
-  // Detect if serial is hung
-  unsigned long startMillis = millis();
-  while (!SensorSerial.available()) {
-    if (millis() - startMillis >= TIMEOUT_TIME) {
-      TX_timeout_handler();
-    }
+    // Keep retrying until we get data
+    do {
+      adcValue = requestChannel(channel);
+      delay(50);
+    } while (adcValue == RESPONSE_ERROR);
+
+    // Meter came back—clear error and redraw the buttons
+    redrawChannelUI();
   }
 
-  uint16_t adcValue = readResponse();
-  if (adcValue == 33333) {
-    adcValue = RX_error_handler(readResponse());
-  }
-
-  printValue(calculateValue(adcValue), adcValue);
+  float reading = calculateValue(adcValue);
+  displayReading(reading, adcValue);
 
   // Checks if a measurement button was touched and changes channel if required
   if (ts.tirqTouched() && ts.touched()  && !touchFlag) {
