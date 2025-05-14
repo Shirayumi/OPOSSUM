@@ -18,6 +18,9 @@ test/builds/
 *.pyc
 __pycache__/
 
+# === EEZ STUDIO ===
+LVGL_GUI.eez-project
+
 # === PYTHON SOFTWARE ===
 .env
 .venv/
