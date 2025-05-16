@@ -16,10 +16,10 @@
 - [x] Set up **firmware environment** (using ArduinoIDE for now)
 - [x] Add **firmware versioning system**
 - [ ] Develop **I2C communication with MIKROE-3116** (WIP-simulating MIKROE-3116)
-- [ ] Create **touchscreen UI for manual testing** (WIP-using basic tft_eSPI)
-- [ ] Develop **data logging functionality** to SD card
+- [ ] Create **touchscreen UI for manual testing** (WIP-switching to LVGL)
 
 ### Automated Testing & Configuration System
+- [ ] Develop **SD card system** for general config files, data-logging, and test config files
 - [ ] Define **JSON test configuration file structure**
 - [ ] Implement **script-based test sequencing**
 
