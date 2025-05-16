@@ -20,6 +20,11 @@
 <!--------------------------------------------------------------------------->
 ## Project Updates
 
+### 15-MAY-25
+- Had a good test of the prototype for the battery pack.
+- Still waiting for the MIKROE-3116.
+![Battery_pack_prototype](/pictures/Battery_pack_prototype.jpg)
+
 ### 13-MAY-25
 - Getting the MIKROE-3116 soon so I can start making actual readings.
 - Using an I2C-to-SPI bridge chip ([SC18IS604](OUTSIDE_DOCUMENTATION/SC18IS604/SC18IS604.pdf)) for coms to the MIKROE-3116.
