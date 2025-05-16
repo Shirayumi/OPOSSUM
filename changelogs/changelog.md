@@ -18,6 +18,19 @@
 ### PATCH
 
 <!------------------------------------------------------------>
+## `0.4.0` 16-MAY-2025
+
+### MAJOR
+
+### MINOR
+- [Added] - LVGL UI
+- [Added] - Value auto ranging when displayed
+- [Added] - Coms check in setup() to prevent system hanging on boot if no meter attached
+
+### PATCH
+
+
+<!------------------------------------------------------------>
 ## `0.3.2` 09-MAY-2025
 
 ### MAJOR
