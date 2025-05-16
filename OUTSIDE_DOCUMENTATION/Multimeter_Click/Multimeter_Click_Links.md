@@ -10,6 +10,7 @@ Any outside links will be formated as follows:<br>
 <!--------------------------------------------------------------------------->
 ## Sources
 - [`Multimeter_Click_MIKROE-3116.pdf`](Multimeter_Click_MIKROE-3116.pdf) ---------------> [OUTSIDE_LINK](https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/806/MIKROE-3116_Web.pdf)
+- ['multimeter-click-schematic-v102'](multimeter-click-schematic-v102) ---------------> [OUTSIDE_LINK](https://www.mikroe.com/multimeter-click)
 
 <!--------------------------------------------------------------------------->
 ## License Note:
