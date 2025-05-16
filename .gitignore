@@ -3,6 +3,7 @@
 Thumbs.db
 *.tmp
 *.bak
+*.FCBak
 *.swp
 MD_templates/
 test/libraries/
